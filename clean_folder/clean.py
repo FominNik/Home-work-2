@@ -4,9 +4,10 @@ import os
 import shutil
 from transliterate import translit
 from pathlib import Path
+import argparse
 
 
-path = Path(sys.argv[1])
+
 
 
 def normalize(name: str) -> str:
@@ -87,20 +88,25 @@ def sort_file(folder_path):
         for ext, folder in file_types.items():
             if extension.upper() == ext:
                 print(f'Moving {file_name} in {folder} folder\n')
-                new_path = os.path.join(path, folder, file_name)
-                create_folder_if_not_exists(os.path.join(path, folder))
+                new_path = os.path.join(folder_path, folder, file_name)
+                create_folder_if_not_exists(os.path.join(folder_path, folder))
 
                 if folder == 'archives':
-                    if extract_and_move_archive(file_path, os.path.join(path, folder)):
+                    if extract_and_move_archive(file_path, os.path.join(folder_path, folder)):
                         os.remove(file_path)
                 else:
                     os.rename(file_path, new_path)
 
 
 def main():
-    path = Path(sys.argv[1])
-    sort_file(path)
+    parser = argparse.ArgumentParser(description="Script sorts files in folders and removes empty folders")
+    parser.add_argument("path", help="Path to the folder to be sorted")
+    args = parser.parse_args()
 
+    path = Path(args.path)
+    sort_file(path)
 
 if __name__ == "__main__":
     main()
+
+

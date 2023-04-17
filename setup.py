@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="clean_folder_user_unique_package_2",
+    name="clean_folder",
     version="0.1.0",
     description="Script sorts files in folders and removes empty folders",
     author="Nik",
@@ -23,7 +23,8 @@ setup(
     python_requires=">=3.5",
     entry_points={
         "console_scripts": [
-            "clean-folder=clean_folder.clean:main",
+            "clean-folder=clean_folder.clean:main"
         ],
     },
 )
+ 
